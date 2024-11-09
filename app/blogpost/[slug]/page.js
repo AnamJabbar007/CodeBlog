@@ -1,6 +1,7 @@
 "use server";
 
 import fs from "fs";
+import path from "path";
 import matter from "gray-matter";
 import { notFound } from "next/navigation";
 import rehypeDocument from "rehype-document";
@@ -15,14 +16,13 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import OnThisPage from "@/components/onthispage";
 
-// Ensure the date is formatted as a string
 const formatDate = (date) => {
   const parsedDate = new Date(date);
-  return parsedDate.toLocaleDateString(); // Adjust format as needed
+  return parsedDate.toLocaleDateString();
 };
 
 export default async function Page({ params }) {
-  const filepath = `content/${params.slug}.md`;
+  const filepath = path.join(process.cwd(), "content", `${params.slug}.md`);
 
   if (!fs.existsSync(filepath)) {
     notFound();
@@ -53,22 +53,19 @@ export default async function Page({ params }) {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-     
       <h1 className="text-4xl font-bold mb-4">{data.title}</h1>
       <p className="text-base max-w-[500px] mb-2 border-l-4 border-gray-500 pl-4 italic">
         &quot;{data.description}&quot;
       </p>
       <div className="flex gap-2">
         <p className="text-sm text-gray-500 mb-4 italic">By {data.author}</p>
-        <p className="text-sm text-gray-500 mb-4">
-          {formatDate(data.date)} {/* Format date */}
-        </p>
+        <p className="text-sm text-gray-500 mb-4">{formatDate(data.date)}</p>
       </div>
       <div
         dangerouslySetInnerHTML={{ __html: htmlContent }}
         className="prose dark:prose-invert"
       ></div>
-         <OnThisPage htmlContent={htmlContent}/>
+      <OnThisPage htmlContent={htmlContent} />
     </div>
   );
 }
