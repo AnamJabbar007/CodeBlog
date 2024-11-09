@@ -57,7 +57,7 @@ const Navbar = () => {
         <div className="hidden md:flex space-x-4 items-center">
           <Link className="hover:scale-105 hover:font-semibold transition-transform duration-300" href="/">Home</Link>
           <Link className="hover:scale-105 hover:font-semibold transition-transform duration-300" href="/blog">Blog</Link>
-          <Link className="hover:scale-105 hover:font-semibold transition-transform duration-300" href="/about">About</Link>
+          <Link className="hover:scale-105 hover:font-semibold transition-transform duration-300" href="/About">About</Link>
           <Link className="hover:scale-105 hover:font-semibold transition-transform duration-300" href="/contact">Contact</Link>
           <div className="flex items-center">
             <Button className="mx-1" variant="outline">
